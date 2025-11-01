@@ -94,7 +94,7 @@ features = ["axum_support"]
 use axum::{Router, body::Bytes, response::IntoResponse, routing::post};
 use bot_sdk_line::support::axum::Signature;
 
-async fn callback(signature: Signature, bytes: Bytes) -> impl IntoResponse {
+async fn callback(Signature(key): Signature, bytes: Bytes) -> impl IntoResponse {
     ...
 }
 ```

@@ -2,9 +2,7 @@ use axum::extract::{FromRequest, Request};
 use hyper::StatusCode;
 
 #[derive(Debug)]
-pub struct Signature {
-    pub key: String,
-}
+pub struct Signature(pub String);
 
 impl<S> FromRequest<S> for Signature
 where
@@ -15,9 +13,7 @@ where
     async fn from_request(req: Request, _state: &S) -> Result<Self, Self::Rejection> {
         if let Some(x_line_signature) = req.headers().get("x-line-signature") {
             if let Ok(key) = x_line_signature.to_str() {
-                Ok(Signature {
-                    key: key.to_owned(),
-                })
+                Ok(Signature(key))
             } else {
                 Err((
                     StatusCode::BAD_REQUEST,
