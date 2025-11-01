@@ -19,9 +19,22 @@ This library requires stable/beta Rust.
 
 ## Installation
 
-Cargo: Coming soon
+### Cargo
 
-Git: Add content below to your `Cargo.toml`
+You can install with command below
+
+```sh
+cargo add bot_sdk_line
+```
+
+Or add this line to `Cargo.toml`
+```toml
+bot_sdk_line = "<version>"
+```
+
+### Git
+
+Add content below to your `Cargo.toml`
 
 ```toml
 [dependencies.bot_sdk_line]
@@ -57,6 +70,24 @@ async fn world(signature: Signature, body: String) -> (Status, &'static str) {
 [dependencies.bot_sdk_line]
 ...
 features = ["actix_support"]
+```
+
+```rust
+use actix_web::{post, web, Error, HttpResponse};
+use bot_sdk_line::support::actix::Signature;
+
+#[post("/callback")]
+async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpResponse, Error> {
+    ...
+}
+```
+
+### Use `axum` framework (Additional Support)
+
+```toml
+[dependencies.bot_sdk_line]
+...
+features = ["axum_support"]
 ```
 
 ```rust

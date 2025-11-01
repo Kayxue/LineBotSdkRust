@@ -27,3 +27,6 @@ pub mod ntex;
 pub mod XitcaError;
 #[cfg(feature = "xitca_support")]
 pub mod xitca;
+
+#[cfg(feature = "axum_support")]
+pub mod axum;

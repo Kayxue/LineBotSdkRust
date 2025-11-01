@@ -34,7 +34,7 @@ impl FromRequest for Signature {
                     key: key.to_string(),
                 })
             } else {
-                Err(ErrorBadRequest("x-line-signature is missing"))
+                Err(ErrorBadRequest("x-line-signature can't be parsed"))
             }
         } else {
             Err(ErrorBadRequest("x-line-signature is missing"))

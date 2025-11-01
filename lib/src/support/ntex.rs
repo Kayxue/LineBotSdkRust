@@ -21,7 +21,7 @@ impl<Err: ErrorRenderer> FromRequest<Err> for Signature {
                     key: key.to_string(),
                 })
             } else {
-                Err(ErrorBadRequest("x-line-signature is missing").into())
+                Err(ErrorBadRequest("x-line-signature can't be parsed").into())
             }
         } else {
             Err(ErrorBadRequest("x-line-signature is missing").into())
