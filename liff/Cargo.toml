@@ -1,6 +1,6 @@
 [package]
 name = "liff-line"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["OpenAPI Generator team and contributors"]
 description = "LIFF Server API."
 # Override this license by providing a License Object in the OpenAPI.

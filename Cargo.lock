@@ -331,7 +331,7 @@ dependencies = [
 
 [[package]]
 name = "bot_sdk_line"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "actix-web",
  "base64 0.22.1",
@@ -411,7 +411,7 @@ checksum = "613afe47fcd5fac7ccf1db93babcb082c5994d996f20b8b159f2ad1658eb5724"
 
 [[package]]
 name = "channel-access-token-line"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "base64 0.7.0",
  "futures",
@@ -1327,7 +1327,7 @@ checksum = "c8fae54786f62fb2918dcfae3d568594e50eb9b5c25bf04371af6fe7516452fb"
 
 [[package]]
 name = "insight-line"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "base64 0.7.0",
  "futures",
@@ -1390,7 +1390,7 @@ checksum = "c19937216e9d3aa9956d9bb8dfc0b0c8beb6058fc4f7a4dc4d850edf86a237d6"
 
 [[package]]
 name = "liff-line"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "base64 0.7.0",
  "futures",
@@ -1473,7 +1473,7 @@ dependencies = [
 
 [[package]]
 name = "manage-audience-line"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "base64 0.7.0",
  "futures",
@@ -1506,7 +1506,7 @@ checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
 
 [[package]]
 name = "messaging-api-line"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "base64 0.7.0",
  "futures",
@@ -1551,7 +1551,7 @@ dependencies = [
 
 [[package]]
 name = "module-attach-line"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "base64 0.7.0",
  "futures",
@@ -1568,7 +1568,7 @@ dependencies = [
 
 [[package]]
 name = "module-line"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "base64 0.7.0",
  "futures",
@@ -2551,7 +2551,7 @@ checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
 name = "shop-line"
-version = "0.0.1"
+version = "0.0.2"
 dependencies = [
  "base64 0.7.0",
  "futures",
@@ -3113,7 +3113,7 @@ dependencies = [
 
 [[package]]
 name = "webhook-line"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "base64 0.7.0",
  "futures",

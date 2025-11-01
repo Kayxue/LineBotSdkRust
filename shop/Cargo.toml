@@ -1,6 +1,6 @@
 [package]
 name = "shop-line"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["OpenAPI Generator team and contributors"]
 description = "This document describes LINE Mission Stickers API."
 # Override this license by providing a License Object in the OpenAPI.

@@ -1,6 +1,6 @@
 [package]
 name = "bot_sdk_line"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 license = "Apache-2.0"
 repository = "https://github.com/Kayxue/LineBotSdkRust"
@@ -45,37 +45,37 @@ optional = true
 default-features = false
 
 [dependencies.channel-access-token-line]
-version = "0.0.1"
+version = "0.0.2"
 path = "../channel_access_token"
 
 [dependencies.insight-line]
-version = "0.0.1"
+version = "0.0.2"
 path = "../insight"
 
 [dependencies.liff-line]
-version = "1.0.0"
+version = "1.0.1"
 path = "../liff"
 
 [dependencies.manage-audience-line]
-version = "0.0.1"
+version = "0.0.2"
 path = "../manage_audience"
 
 [dependencies.messaging-api-line]
-version = "0.0.1"
+version = "0.0.2"
 path = "../messaging_api"
 
 [dependencies.module-line]
-version = "0.0.1"
+version = "0.0.2"
 path = "../module"
 
 [dependencies.module-attach-line]
-version = "0.0.1"
+version = "0.0.2"
 path = "../module_attach"
 
 [dependencies.shop-line]
-version = "0.0.1"
+version = "0.0.2"
 path = "../shop"
 
 [dependencies.webhook-line]
-version = "1.0.0"
+version = "1.0.1"
 path = "../webhook"
