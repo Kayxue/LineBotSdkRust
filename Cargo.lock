@@ -3431,9 +3431,9 @@ checksum = "1e9df38ee2d2c3c5948ea468a8406ff0db0b29ae1ffde1bcf20ef305bcc95c51"
 
 [[package]]
 name = "xitca-http"
-version = "0.7.0"
+version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed42227e2d6efd459268d4ed975f7a92ec0a9bbc2f99b6bcea373824e87e5a97"
+checksum = "8ebee6097494458ff127c1aaeb0c4fa4445406e7758b13e5423d561f252179fd"
 dependencies = [
  "futures-core",
  "http 1.3.1",
@@ -3483,9 +3483,9 @@ dependencies = [
 
 [[package]]
 name = "xitca-web"
-version = "0.7.0"
+version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb65a52a0a51ca0bd70c8d5afcc0b8bb1928dcf85ab5752ff1d78463647d6b3b"
+checksum = "5b3f97a5ef9ca71aa01c647715049af13d1e0c4381013c2dc358651e4798a872"
 dependencies = [
  "futures-core",
  "pin-project-lite",
