@@ -41,7 +41,7 @@ pub trait MessagingApiBlobApi: Send + Sync {
     fn get_message_content_preview(&self, message_id: &str) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>>;
     fn get_message_content_transcoding_by_message_id(&self, message_id: &str) -> Pin<Box<dyn Future<Output = Result<models::GetMessageContentTranscodingResponse, Error>> + Send>>;
     fn get_rich_menu_image(&self, rich_menu_id: &str) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>>;
-    fn set_rich_menu_image(&self, rich_menu_id: &str, body: Option<std::path::PathBuf>) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    fn set_rich_menu_image(&self, rich_menu_id: &str, body: Vec<u8>) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
 }
 
 impl<C: Connect>MessagingApiBlobApi for MessagingApiBlobApiClient<C>
@@ -83,11 +83,11 @@ impl<C: Connect>MessagingApiBlobApi for MessagingApiBlobApiClient<C>
     }
 
     #[allow(unused_mut)]
-    fn set_rich_menu_image(&self, rich_menu_id: &str, body: Option<std::path::PathBuf>) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    fn set_rich_menu_image(&self, rich_menu_id: &str, body: Vec<u8>) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(hyper::Method::POST, "/v2/bot/richmenu/{richMenuId}/content".to_string())
         ;
         req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
-        req = req.with_body_param(body);
+        req = req.with_binary_body(body);
         req = req.returns_nothing();
 
         req.execute(self.configuration.borrow())

@@ -4,8 +4,9 @@ use std::pin::Pin;
 use futures;
 use futures::Future;
 use futures::future::*;
-use http_body_util::BodyExt;
+use http_body_util::{BodyExt, Full};
 use hyper;
+use hyper::body::Bytes;
 use hyper_util::client::legacy::connect::Connect;
 use hyper::header::{AUTHORIZATION, CONTENT_LENGTH, CONTENT_TYPE, HeaderValue, USER_AGENT};
 use serde;
@@ -205,13 +206,13 @@ impl Request {
             for (k, v) in self.form_params {
                 enc.append_pair(&k, &v);
             }
-            req_builder.body(enc.finish())
+            req_builder.body(Full::new(Bytes::from(enc.finish())))
         } else if let Some(body) = self.serialized_body {
             req_headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
             req_headers.insert(CONTENT_LENGTH, body.len().into());
-            req_builder.body(body)
+            req_builder.body(Full::new(Bytes::from(body)))
         } else {
-            req_builder.body(String::new())
+            req_builder.body(Full::new(Bytes::new()))
         };
         let request = match request_result {
             Ok(request) => request,

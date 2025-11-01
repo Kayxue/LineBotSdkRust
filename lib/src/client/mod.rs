@@ -16,6 +16,8 @@
 
 use std::sync::Arc;
 
+use http_body_util::Full;
+use hyper::body::Bytes;
 use hyper_tls::HttpsConnector;
 use hyper_util::client::legacy::connect::HttpConnector;
 use hyper_util::{client::legacy::Client, rt::TokioExecutor};
@@ -29,7 +31,8 @@ use manage_audience_line::apis::{
     ManageAudienceApiClient, configuration::Configuration as ManageAudienceConfiguration,
 };
 use messaging_api_line::apis::{
-    MessagingApiApiClient, configuration::Configuration as MessagingApiConfiguration,
+    MessagingApiApiClient, MessagingApiBlobApiClient,
+    configuration::Configuration as MessagingApiConfiguration,
 };
 use module_attach_line::apis::{
     LineModuleAttachApiClient, configuration::Configuration as LineModuleAttachConfiguration,
@@ -50,6 +53,7 @@ pub struct LINE {
     pub liff_api_client: LiffApiClient<Connector>,
     pub manage_audience_api_client: ManageAudienceApiClient<Connector>,
     pub messaging_api_client: MessagingApiApiClient<Connector>,
+    pub messaging_api_blob_client: MessagingApiBlobApiClient<Connector>,
     pub module_api_client: LineModuleApiClient<Connector>,
     pub module_attach_api_client: LineModuleAttachApiClient<Connector>,
     pub shop_api_client: ShopApiClient<Connector>,
@@ -89,6 +93,14 @@ impl LINE {
         messaging_api_conf.oauth_access_token = Some(token.to_owned());
         let messaging_api_client = MessagingApiApiClient::new(Arc::new(messaging_api_conf));
 
+        // messaging_api_blob
+        let mut messaging_api_blob_conf =
+            MessagingApiConfiguration::<Connector>::new(client.clone());
+        messaging_api_blob_conf.base_path = "https://api-data.line.me".to_owned();
+        messaging_api_blob_conf.oauth_access_token = Some(token.to_owned());
+        let messaging_api_blob_client =
+            MessagingApiBlobApiClient::new(Arc::new(messaging_api_blob_conf));
+
         // module
         let mut module_conf = LineModuleConfiguration::<Connector>::new(client.clone());
         module_conf.oauth_access_token = Some(token.to_owned());
@@ -116,6 +128,7 @@ impl LINE {
             liff_api_client,
             manage_audience_api_client,
             messaging_api_client,
+            messaging_api_blob_client,
             module_api_client,
             module_attach_api_client,
             shop_api_client,
@@ -123,11 +136,11 @@ impl LINE {
         }
     }
 
-    fn create_hyper_client() -> Client<Connector, String> {
+    fn create_hyper_client() -> Client<Connector, Full<Bytes>> {
         let https = HttpsConnector::new();
         Client::builder(TokioExecutor::new())
             .pool_idle_timeout(std::time::Duration::from_secs(60))
             .pool_max_idle_per_host(10)
-            .build::<_, String>(https)
+            .build::<_, Full<Bytes>>(https)
     }
 }

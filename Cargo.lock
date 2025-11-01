@@ -337,6 +337,7 @@ dependencies = [
  "base64 0.22.1",
  "channel-access-token-line",
  "hmac",
+ "http-body-util",
  "hyper 1.6.0",
  "hyper-tls",
  "hyper-util",

@@ -25,6 +25,12 @@ use sha2::Sha256;
 /// The signature in the `x-line-signature` request header must be verified to confirm that the request was sent from the LINE Platform. [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#signature-validation)
 /// # Example
 /// ```
+/// use bot_sdk_line::parser::signature::validate_signature;
+/// 
+/// let channel_secret = "your_channel_secret";
+/// let signature = "signature_from_header";
+/// let body = "request_body";
+/// 
 /// if validate_signature(channel_secret, signature, body) {
 ///     // OK
 /// } else {

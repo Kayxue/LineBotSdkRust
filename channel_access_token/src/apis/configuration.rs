@@ -9,11 +9,13 @@
  */
 
 use hyper;
+use hyper::body::Bytes;
 use hyper_tls::HttpsConnector;
 use hyper_util::client::legacy::connect::Connect;
 use hyper_util::client::legacy::connect::HttpConnector;
 use hyper_util::client::legacy::Client;
 use hyper_util::rt::TokioExecutor;
+use http_body_util::Full;
 
 type Connector = HttpsConnector<HttpConnector>;
 
@@ -23,7 +25,7 @@ where
 {
     pub base_path: String,
     pub user_agent: Option<String>,
-    pub client: Client<C, String>,
+    pub client: Client<C, Full<Bytes>>,
     pub basic_auth: Option<BasicAuth>,
     pub oauth_access_token: Option<String>,
     pub api_key: Option<ApiKey>,
@@ -56,7 +58,7 @@ where
     ///   ..Configuration::new()
     /// };
     /// ```
-    pub fn new(client: Client<Connector, String>) -> Configuration<Connector> {
+    pub fn new(client: Client<Connector, Full<Bytes>>) -> Configuration<Connector> {
         Configuration {
             base_path: "https://api.line.me".to_owned(),
             user_agent: Some("OpenAPI-Generator/0.0.1/rust".to_owned()),

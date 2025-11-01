@@ -4,8 +4,9 @@ use std::pin::Pin;
 use futures;
 use futures::Future;
 use futures::future::*;
-use http_body_util::BodyExt;
+use http_body_util::{BodyExt, Full};
 use hyper;
+use hyper::body::Bytes;
 use hyper_util::client::legacy::connect::Connect;
 use hyper::header::{AUTHORIZATION, CONTENT_LENGTH, CONTENT_TYPE, HeaderValue, USER_AGENT};
 use serde;
@@ -50,6 +51,7 @@ pub(crate) struct Request {
     header_params: HashMap<String, String>,
     // TODO: multiple body params are possible technically, but not supported here.
     serialized_body: Option<String>,
+    binary_body: Option<Vec<u8>>,
 }
 
 #[allow(dead_code)]
@@ -64,12 +66,18 @@ impl Request {
             form_params: HashMap::new(),
             header_params: HashMap::new(),
             serialized_body: None,
+            binary_body: None,
             no_return_type: false,
         }
     }
 
     pub fn with_body_param<T: serde::Serialize>(mut self, param: T) -> Self {
         self.serialized_body = Some(serde_json::to_string(&param).unwrap());
+        self
+    }
+
+    pub fn with_binary_body(mut self, body: Vec<u8>) -> Self {
+        self.binary_body = Some(body);
         self
     }
 
@@ -205,13 +213,18 @@ impl Request {
             for (k, v) in self.form_params {
                 enc.append_pair(&k, &v);
             }
-            req_builder.body(enc.finish())
+            let body = enc.finish();
+            req_builder.body(Full::new(Bytes::from(body)))
+        } else if let Some(body) = self.binary_body {
+            req_headers.insert(CONTENT_TYPE, HeaderValue::from_static("image/png"));
+            req_headers.insert(CONTENT_LENGTH, body.len().into());
+            req_builder.body(Full::new(Bytes::from(body)))
         } else if let Some(body) = self.serialized_body {
             req_headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
             req_headers.insert(CONTENT_LENGTH, body.len().into());
-            req_builder.body(body)
+            req_builder.body(Full::new(Bytes::from(body)))
         } else {
-            req_builder.body(String::new())
+            req_builder.body(Full::new(Bytes::new()))
         };
         let request = match request_result {
             Ok(request) => request,
