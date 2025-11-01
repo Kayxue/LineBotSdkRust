@@ -91,11 +91,10 @@ features = ["axum_support"]
 ```
 
 ```rust
-use actix_web::{post, web, Error, HttpResponse};
-use bot_sdk_line::support::actix::Signature;
+use axum::{Router, body::Bytes, response::IntoResponse, routing::post};
+use bot_sdk_line::support::axum::Signature;
 
-#[post("/callback")]
-async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpResponse, Error> {
+async fn callback(signature: Signature, bytes: Bytes) -> impl IntoResponse {
     ...
 }
 ```
